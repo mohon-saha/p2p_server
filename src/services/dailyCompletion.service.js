@@ -50,6 +50,52 @@ exports.getDailyCompletions = async () => {
   return records;
 };
 
+// Get tasks that are due today or in the past and not marked as done
+exports.getDueTasks = async () => {
+  const today = new Date().toISOString().split("T")[0]; // Get current date in YYYY-MM-DD format
+
+  const dueTasks = await DailyCompletion.findAll({
+    where: {
+      isDeleted: false,
+      isDone: false,
+      taskDate: {
+        [db.Sequelize.Op.lte]: today, // Less than or equal to today
+      },
+    },
+    order: [["taskDate", "ASC"]],
+  });
+
+  return dueTasks;
+};
+
+// Get todays tasks
+exports.getTodayTasks = async () => {
+  const today = new Date().toISOString().split("T")[0]; // Get current date in YYYY-MM-DD format
+
+  const todayTasks = await DailyCompletion.findAll({
+    where: {
+      isDeleted: false,
+      taskDate: today, // Equal to today
+    },
+    order: [["taskDate", "ASC"]],
+  });
+
+  return todayTasks;
+};
+
+// Get tasks for a specific date
+exports.getTasksByDate = async (date) => {
+  const tasks = await DailyCompletion.findAll({
+    where: {
+      isDeleted: false,
+      taskDate: date, // Filter by specific date
+    },
+    order: [["taskDate", "ASC"]],
+  });
+
+  return tasks;
+};
+
 exports.deleteDailyCompletion = async (id) => {
   const record = await DailyCompletion.findByPk(id);
 

@@ -26,4 +26,6 @@ db.DailyCompletion = require("../models/dailyCompletion.model")(
   DataTypes
 );
 
+db.TimeEntry = require("../models/TimeEntry")(sequelize, DataTypes);
+
 module.exports = db;

@@ -20,4 +20,17 @@ dailyCompletionRouter.delete(
   dailyCompletionController.deleteDailyCompletion
 );
 
+dailyCompletionRouter.get("/due-tasks", dailyCompletionController.getDueTasks);
+
+dailyCompletionRouter.get(
+  "/today-tasks",
+  dailyCompletionController.getTodayTasks
+);
+
+// get taks for a specific date (e.g., /daily-completion/date/2024-06-15/tasks)
+dailyCompletionRouter.get(
+  "/date/:date/tasks",
+  dailyCompletionController.getTasksByDate
+);
+
 module.exports = dailyCompletionRouter;

@@ -47,6 +47,43 @@ exports.getDailyCompletions = async (req, res) => {
   }
 };
 
+exports.getDueTasks = async (req, res) => {
+  try {
+    const result = await DailyCompletionService.getDueTasks();
+
+    res.status(200).json(result);
+  } catch (error) {
+    console.error("Fetch error:", error);
+    res.status(500).json({ error: "Failed to fetch due tasks" });
+  }
+};
+
+exports.getTodayTasks = async (req, res) => {
+  try {
+    const result = await DailyCompletionService.getTodayTasks();
+
+    res.status(200).json(result);
+  } catch (error) {
+    console.error("Fetch error:", error);
+    res.status(500).json({ error: "Failed to fetch today's tasks" });
+  }
+};
+
+exports.getTasksByDate = async (req, res) => {
+  try {
+    const date = req.params.date; // Expecting date in YYYY-MM-DD format
+
+    const result = await DailyCompletionService.getTasksByDate(date);
+
+    res.status(200).json(result);
+  } catch (error) {
+    console.error("Fetch error:", error);
+    res
+      .status(500)
+      .json({ error: "Failed to fetch tasks for the specified date" });
+  }
+};
+
 exports.deleteDailyCompletion = async (req, res) => {
   try {
     const id = req.params.id;

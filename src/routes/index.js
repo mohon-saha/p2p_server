@@ -2,12 +2,17 @@ const express = require("express");
 const apiRouter = express.Router();
 // const { path } = require("../app");
 const dailyCompletionRouter = require("./dailyCompletionRouter.routes");
+const timeEntryRouter = require("./timeEntry.routes");
 
 // Define your route configurations here
 const routers = [
   {
     path: "/daily-completion",
     router: dailyCompletionRouter,
+  },
+  {
+    path: "/time-entry",
+    router: timeEntryRouter,
   },
 ];
 
