@@ -3,6 +3,9 @@ const apiRouter = express.Router();
 // const { path } = require("../app");
 const dailyCompletionRouter = require("./dailyCompletionRouter.routes");
 const timeEntryRouter = require("./timeEntry.routes");
+const taskCategory = require("./taskCategory.routes");
+const monthlyGoalRouter = require("./monthlyGoal.routes");
+const goalTrackerRouter = require("./goalTracker.route");
 
 // Define your route configurations here
 const routers = [
@@ -13,6 +16,18 @@ const routers = [
   {
     path: "/time-entry",
     router: timeEntryRouter,
+  },
+  {
+    path: "/task-category",
+    router: taskCategory,
+  },
+  {
+    path: "/monthly-goal",
+    router: monthlyGoalRouter,
+  },
+  {
+    path: "/goal-tracker",
+    router: goalTrackerRouter,
   },
 ];
 

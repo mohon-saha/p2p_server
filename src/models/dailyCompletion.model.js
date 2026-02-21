@@ -23,6 +23,15 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.BOOLEAN,
         defaultValue: false,
       },
+
+      // isAltered: {
+      //   type: DataTypes.BOOLEAN,
+      //   defaultValue: false,
+      // },
+      // alterTask: {
+      //   type: DataTypes.STRING,
+      //   allowNull: true,
+      // },
     },
     {
       tableName: "dailyCompletion",

@@ -25,7 +25,11 @@ db.DailyCompletion = require("../models/dailyCompletion.model")(
   sequelize,
   DataTypes
 );
-
 db.TimeEntry = require("../models/TimeEntry")(sequelize, DataTypes);
+db.TaskCategory = require("../models/taskCategory.model")(sequelize, DataTypes);
+
+db.MonthlyGoal = require("../models/monthlyGoal.model")(sequelize, DataTypes);
+
+db.GoalTracker = require("../models/goalTracker.model")(sequelize, DataTypes);
 
 module.exports = db;
