@@ -75,6 +75,13 @@ exports.getTrackersByGoal = async (goalId) => {
   });
 };
 
+exports.getGoalTrackers = async (goalId) => {
+  return await GoalTracker.findAll({
+    where: { goalId },
+    order: [["trackingDate", "ASC"]],
+  });
+};
+
 exports.deleteGoalTracker = async (id) => {
   const tracker = await GoalTracker.findByPk(id);
   if (!tracker) throw new Error("Goal tracker not found");

@@ -14,4 +14,16 @@ monthlyGoalRouter.get("/month/:month", monthlyGoalController.getGoalsByMonth);
 
 monthlyGoalRouter.delete("/:id", monthlyGoalController.deleteMonthlyGoal);
 
+// Get all goals with tracker data
+monthlyGoalRouter.get(
+  "/goal-tracker-data",
+  monthlyGoalController.getMonthlyGoalsWithTracker
+);
+
+// NEW ROUTE: get goals + tracker for a month
+monthlyGoalRouter.get(
+  "/month/:month/tracker",
+  monthlyGoalController.getMonthlyGoalsWithTrackerByMonth
+);
+
 module.exports = monthlyGoalRouter;

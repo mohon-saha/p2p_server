@@ -15,6 +15,9 @@ goalTrackerRouter.get("/", goalTrackerController.getAllGoalTrackers);
 // Get trackers by goal
 goalTrackerRouter.get("/goal/:goalId", goalTrackerController.getTrackersByGoal);
 
+// Get goal trackers data by goal
+goalTrackerRouter.get("/goal/:goalId", goalTrackerController.getGoalTrackers);
+
 // Delete tracker
 goalTrackerRouter.delete("/:id", goalTrackerController.deleteGoalTracker);
 

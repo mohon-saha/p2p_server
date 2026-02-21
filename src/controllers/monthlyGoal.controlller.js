@@ -57,6 +57,30 @@ exports.getGoalsByMonth = async (req, res) => {
   }
 };
 
+exports.getMonthlyGoalsWithTracker = async (req, res) => {
+  try {
+    const result = await MonthlyGoalService.getMonthlyGoalsWithTracker();
+    res.status(200).json(result);
+  } catch (error) {
+    console.error("Fetch error:", error);
+    res.status(500).json({ error: "Failed to fetch monthly goals" });
+  }
+};
+
+exports.getMonthlyGoalsWithTrackerByMonth = async (req, res) => {
+  try {
+    const month = req.params.month; // expected format: YYYY-MM
+    const result =
+      await MonthlyGoalService.getMonthlyGoalsWithTrackerByMonth(month);
+    res.status(200).json(result);
+  } catch (error) {
+    console.error("Fetch error:", error);
+    res
+      .status(500)
+      .json({ error: "Failed to fetch monthly goals with tracker" });
+  }
+};
+
 exports.deleteMonthlyGoal = async (req, res) => {
   try {
     const id = req.params.id;

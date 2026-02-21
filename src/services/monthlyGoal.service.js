@@ -44,6 +44,58 @@ exports.getMonthlyGoals = async () => {
   });
 };
 
+// Fetch all goals with trackerData
+exports.getMonthlyGoalsWithTracker = async () => {
+  const goals = await MonthlyGoal.findAll({
+    where: { isDeleted: false },
+    order: [["goalDate", "ASC"]],
+    include: [
+      {
+        model: db.GoalTracker,
+        as: "trackerData",
+        attributes: ["id", "trackingDate", "trackingValue"],
+      },
+    ],
+  });
+
+  return goals;
+};
+
+exports.getMonthlyGoalsWithTrackerByMonth = async (month) => {
+  // month format: YYYY-MM
+  const startDate = `${month}-01`;
+  const end = new Date(startDate);
+  end.setMonth(end.getMonth() + 1); // next month
+  const endDate = end.toISOString().split("T")[0];
+
+  const goals = await MonthlyGoal.findAll({
+    where: {
+      isDeleted: false,
+      goalDate: {
+        [Op.gte]: startDate,
+        [Op.lt]: endDate,
+      },
+    },
+    order: [["goalDate", "ASC"]],
+    include: [
+      {
+        model: db.GoalTracker,
+        as: "trackerData",
+        attributes: [
+          "id",
+          "goalId",
+          "trackingDate",
+          "trackingValue",
+          "created_at",
+          "updated_at",
+        ],
+      },
+    ],
+  });
+
+  return goals;
+};
+
 exports.getGoalsByMonth = async (month) => {
   // month format: YYYY-MM
   const startDate = `${month}-01`;

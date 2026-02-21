@@ -58,6 +58,17 @@ exports.getTrackersByGoal = async (req, res) => {
   }
 };
 
+exports.getGoalTrackers = async (req, res) => {
+  try {
+    const result = await GoalTrackerService.getGoalTrackers();
+
+    res.status(200).json(result);
+  } catch (error) {
+    console.error("Fetch error:", error);
+    res.status(500).json({ error: "Failed to fetch trackers for goal" });
+  }
+};
+
 exports.deleteGoalTracker = async (req, res) => {
   try {
     const id = req.params.id;
