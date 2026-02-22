@@ -11,7 +11,7 @@ app.listen(PORT, async () => {
     console.log(
       `Server is alive on PORT:${PORT} in ${environment} environment`
     );
-    await db.GoalTracker.sync({ alter: true });
+    await db.DailyCompletion.sync({ alter: true });
     // await db.sequelize.sync({ alter: true });
 
     console.log(`Connected to the database successfully!`);

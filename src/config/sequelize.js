@@ -82,4 +82,32 @@ db.GoalTracker.belongsTo(db.MonthlyGoal, {
   as: "goal",
 });
 
+// A DailyCompletion has many TimeEntry
+db.DailyCompletion.hasMany(db.TimeEntry, {
+  foreignKey: "taskId",
+  as: "taskData",
+  onDelete: "CASCADE",
+  onUpdate: "CASCADE",
+});
+
+// A TimeEntry belongs to a DailyCompletion
+db.TimeEntry.belongsTo(db.DailyCompletion, {
+  foreignKey: "taskId",
+  as: "task",
+});
+
+// A TaskCategory has many DailyCompletion
+db.TaskCategory.hasMany(db.DailyCompletion, {
+  foreignKey: "categoryId",
+  as: "tasks",
+  onDelete: "RESTRICT",
+  onUpdate: "CASCADE",
+});
+
+// A DailyCompletion belongs to TaskCategory
+db.DailyCompletion.belongsTo(db.TaskCategory, {
+  foreignKey: "categoryId",
+  as: "category",
+});
+
 module.exports = db;

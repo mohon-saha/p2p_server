@@ -6,6 +6,7 @@ const timeEntryRouter = require("./timeEntry.routes");
 const taskCategory = require("./taskCategory.routes");
 const monthlyGoalRouter = require("./monthlyGoal.routes");
 const goalTrackerRouter = require("./goalTracker.route");
+const taskCategoryRouter = require("./taskCategory.routes");
 
 // Define your route configurations here
 const routers = [
@@ -28,6 +29,10 @@ const routers = [
   {
     path: "/goal-tracker",
     router: goalTrackerRouter,
+  },
+  {
+    path: "/task-category",
+    router: taskCategoryRouter,
   },
 ];
 

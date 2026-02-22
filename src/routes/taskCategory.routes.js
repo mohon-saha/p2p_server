@@ -1,14 +1,18 @@
 const express = require("express");
-const dailyCompletionController = require("../controllers/createDailyCompletion.controller");
+const taskCategoryController = require("../controllers/taskCategory.controller");
 
-const taskCategory = express.Router();
+const taskCategoryRouter = express.Router();
 
-taskCategory.post("/create", dailyCompletionController.createDailyCompletion);
+// Create category
+taskCategoryRouter.post("/create", taskCategoryController.createTaskCategory);
 
-taskCategory.patch("/:id", dailyCompletionController.updateDailyCompletion);
+// Update category
+taskCategoryRouter.patch("/:id", taskCategoryController.updateTaskCategory);
 
-taskCategory.get("/", dailyCompletionController.getDailyCompletions);
+// Get all categories
+taskCategoryRouter.get("/", taskCategoryController.getTaskCategories);
 
-taskCategory.delete("/:id", dailyCompletionController.deleteDailyCompletion);
+// Delete category (soft delete)
+taskCategoryRouter.delete("/:id", taskCategoryController.deleteTaskCategory);
 
-module.exports = taskCategory;
+module.exports = taskCategoryRouter;

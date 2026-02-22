@@ -2,7 +2,7 @@ const db = require("../config/sequelize");
 const DailyCompletion = db.DailyCompletion;
 
 exports.createDailyCompletion = async (data) => {
-  const { task, taskDate, isDone } = data;
+  const { task, taskDate, isDone, categoryId } = data;
 
   if (!task || !taskDate) {
     throw new Error("task and taskDate are required");
@@ -12,6 +12,7 @@ exports.createDailyCompletion = async (data) => {
     task,
     taskDate,
     isDone: isDone || false,
+    categoryId,
   });
 
   return newEntry;

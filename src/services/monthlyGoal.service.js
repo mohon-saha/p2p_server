@@ -3,14 +3,7 @@ const MonthlyGoal = db.MonthlyGoal;
 const { Op } = db.Sequelize;
 
 exports.createMonthlyGoal = async (data) => {
-  //   const { goalName, goalType, goalValue, goalDate } = data;
-
-  //   if (!goalName || !goalType || !goalDate) {
-  //     throw new Error("goalName, goalType and goalDate are required");
-  //   }
-
   const newGoal = await MonthlyGoal.create(data);
-
   return newGoal;
 };
 

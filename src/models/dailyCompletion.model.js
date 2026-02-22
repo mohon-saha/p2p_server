@@ -23,15 +23,16 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.BOOLEAN,
         defaultValue: false,
       },
-
-      // isAltered: {
-      //   type: DataTypes.BOOLEAN,
-      //   defaultValue: false,
-      // },
-      // alterTask: {
-      //   type: DataTypes.STRING,
-      //   allowNull: true,
-      // },
+      categoryId: {
+        type: DataTypes.INTEGER.UNSIGNED,
+        allowNull: true,
+        references: {
+          model: "taskCategory",
+          key: "id",
+        },
+        onUpdate: "CASCADE",
+        onDelete: "RESTRICT",
+      },
     },
     {
       tableName: "dailyCompletion",
@@ -40,6 +41,13 @@ module.exports = (sequelize, DataTypes) => {
       updatedAt: "updated_at",
     }
   );
+
+  DailyCompletion.associate = (models) => {
+    DailyCompletion.belongsTo(models.TaskCategory, {
+      foreignKey: "categoryId",
+      as: "category",
+    });
+  };
 
   return DailyCompletion;
 };

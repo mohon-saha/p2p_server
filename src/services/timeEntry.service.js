@@ -130,8 +130,29 @@ exports.getTimeEntriesForDate = async (date) => {
 };
 
 // Get time entries for today
+// exports.getTimeEntriesForToday = async () => {
+//   const today = new Date().toISOString().split("T")[0];
+
+//   const records = await TimeEntry.findAll({
+//     where: {
+//       isDeleted: false,
+//       entryDate: today,
+//     },
+//     include: [
+//       {
+//         model: db.DailyCompletion,
+//         as: "task",
+//         attributes: ["id", "task"],
+//       },
+//     ],
+//     order: [["created_at", "DESC"]],
+//   });
+
+//   return records;
+// };
+
 exports.getTimeEntriesForToday = async () => {
-  const today = new Date().toISOString().split("T")[0];
+  const today = new Date().toLocaleDateString("en-CA");
 
   const records = await TimeEntry.findAll({
     where: {
@@ -142,7 +163,14 @@ exports.getTimeEntriesForToday = async () => {
       {
         model: db.DailyCompletion,
         as: "task",
-        attributes: ["id", "task"],
+        attributes: ["id", "task", "categoryId"],
+        include: [
+          {
+            model: db.TaskCategory,
+            as: "category",
+            attributes: ["id", "category"],
+          },
+        ],
       },
     ],
     order: [["created_at", "DESC"]],

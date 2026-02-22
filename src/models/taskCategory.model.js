@@ -11,10 +11,6 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      categoryIcon: {
-        type: DataTypes.STRING,
-        allowNull: true,
-      },
       isDeleted: {
         type: DataTypes.BOOLEAN,
         defaultValue: false,
