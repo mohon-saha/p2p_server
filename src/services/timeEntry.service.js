@@ -74,36 +74,36 @@ exports.getTimeEntries = async () => {
 };
 
 // Get tasks for today
-exports.getTodaysTasks = async () => {
-  const today = new Date().toISOString().split("T")[0];
+// exports.getTodaysTasks = async () => {
+//   const today = new Date().toISOString().split("T")[0];
 
-  const tasks = await DailyCompletion.findAll({
-    where: {
-      isDeleted: false,
-      taskDate: today,
-    },
-    order: [["created_at", "ASC"]],
-  });
+//   const tasks = await DailyCompletion.findAll({
+//     where: {
+//       isDeleted: false,
+//       taskDate: today,
+//     },
+//     order: [["created_at", "ASC"]],
+//   });
 
-  return tasks;
-};
+//   return tasks;
+// };
 
 // Get tasks for a specific date
-exports.getTasksForDate = async (date) => {
-  if (!date) {
-    throw new Error("Date is required");
-  }
+// exports.getTasksForDate = async (date) => {
+//   if (!date) {
+//     throw new Error("Date is required");
+//   }
 
-  const tasks = await DailyCompletion.findAll({
-    where: {
-      isDeleted: false,
-      taskDate: date,
-    },
-    order: [["created_at", "ASC"]],
-  });
+//   const tasks = await DailyCompletion.findAll({
+//     where: {
+//       isDeleted: false,
+//       taskDate: date,
+//     },
+//     order: [["created_at", "ASC"]],
+//   });
 
-  return tasks;
-};
+//   return tasks;
+// };
 
 // Get time entries for a specific date
 exports.getTimeEntriesForDate = async (date) => {
@@ -120,7 +120,14 @@ exports.getTimeEntriesForDate = async (date) => {
       {
         model: db.DailyCompletion,
         as: "task",
-        attributes: ["id", "task"],
+        attributes: ["id", "task", "categoryId"],
+        include: [
+          {
+            model: db.TaskCategory,
+            as: "category",
+            attributes: ["id", "category"],
+          },
+        ],
       },
     ],
     order: [["created_at", "DESC"]],
@@ -128,28 +135,6 @@ exports.getTimeEntriesForDate = async (date) => {
 
   return records;
 };
-
-// Get time entries for today
-// exports.getTimeEntriesForToday = async () => {
-//   const today = new Date().toISOString().split("T")[0];
-
-//   const records = await TimeEntry.findAll({
-//     where: {
-//       isDeleted: false,
-//       entryDate: today,
-//     },
-//     include: [
-//       {
-//         model: db.DailyCompletion,
-//         as: "task",
-//         attributes: ["id", "task"],
-//       },
-//     ],
-//     order: [["created_at", "DESC"]],
-//   });
-
-//   return records;
-// };
 
 exports.getTimeEntriesForToday = async () => {
   const today = new Date().toLocaleDateString("en-CA");

@@ -47,34 +47,35 @@ exports.getTimeEntries = async (req, res) => {
   }
 };
 
-exports.getTodaysTasks = async (req, res) => {
-  try {
-    const result = await TimeEntryService.getTodaysTasks();
+// exports.getTodaysTasks = async (req, res) => {
+//   try {
+//     const result = await TimeEntryService.getTodaysTasks();
 
-    res.status(200).json(result);
-  } catch (error) {
-    console.error("Fetch error:", error);
-    res.status(500).json({ error: "Failed to fetch today's tasks" });
-  }
-};
+//     res.status(200).json(result);
+//   } catch (error) {
+//     console.error("Fetch error:", error);
+//     res.status(500).json({ error: "Failed to fetch today's tasks" });
+//   }
+// };
 
-exports.getTasksForDate = async (req, res) => {
-  try {
-    const date = req.params.date;
+// exports.getTasksForDate = async (req, res) => {
+//   try {
+//     const date = req.params.date;
 
-    if (!date) {
-      return res.status(400).json({ error: "Date parameter is required" });
-    }
+//     if (!date) {
+//       return res.status(400).json({ error: "Date parameter is required" });
+//     }
 
-    const result = await TimeEntryService.getTasksForDate(date);
+//     const result = await TimeEntryService.getTasksForDate(date);
 
-    res.status(200).json(result);
-  } catch (error) {
-    console.error("Fetch error:", error);
-    res.status(500).json({ error: "Failed to fetch tasks for date" });
-  }
-};
+//     res.status(200).json(result);
+//   } catch (error) {
+//     console.error("Fetch error:", error);
+//     res.status(500).json({ error: "Failed to fetch tasks for date" });
+//   }
+// };
 
+// Get time entries for a specific date
 exports.getTimeEntriesForDate = async (req, res) => {
   try {
     const date = req.params.date;

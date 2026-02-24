@@ -70,14 +70,34 @@ exports.getDueTasks = async () => {
 };
 
 // Get todays tasks
-exports.getTodayTasks = async () => {
-  const today = new Date().toISOString().split("T")[0]; // Get current date in YYYY-MM-DD format
+// exports.getTodayTasks = async (req, res) => {
+//   try {
+//     const filters = req.query; // 👈 get query params
+
+//     const result = await DailyCompletion.getTodayTasks(filters);
+
+//     res.status(200).json(result);
+//   } catch (error) {
+//     console.error("Fetch error:", error);
+//     res.status(500).json({ error: "Failed to fetch today's tasks" });
+//   }
+// };
+
+exports.getTodayTasks = async (filters) => {
+  const today = new Date().toLocaleDateString("en-CA"); // avoid timezone issue
+
+  const whereCondition = {
+    isDeleted: false,
+    taskDate: today,
+  };
+
+  // 🔥 Add isDone filter if provided
+  if (filters.isDone !== undefined) {
+    whereCondition.isDone = filters.isDone === "true";
+  }
 
   const todayTasks = await DailyCompletion.findAll({
-    where: {
-      isDeleted: false,
-      taskDate: today, // Equal to today
-    },
+    where: whereCondition,
     order: [["taskDate", "ASC"]],
   });
 
@@ -85,12 +105,19 @@ exports.getTodayTasks = async () => {
 };
 
 // Get tasks for a specific date
-exports.getTasksByDate = async (date) => {
+exports.getTasksByDate = async (date, filters) => {
+  const whereCondition = {
+    isDeleted: false,
+    taskDate: date,
+  };
+
+  // Add isDone filter if provided
+  if (filters.isDone !== undefined) {
+    whereCondition.isDone = filters.isDone === "true";
+  }
+
   const tasks = await DailyCompletion.findAll({
-    where: {
-      isDeleted: false,
-      taskDate: date, // Filter by specific date
-    },
+    where: whereCondition,
     order: [["taskDate", "ASC"]],
   });
 

@@ -58,9 +58,22 @@ exports.getDueTasks = async (req, res) => {
   }
 };
 
+// exports.getTodayTasks = async (req, res) => {
+//   try {
+//     const result = await DailyCompletionService.getTodayTasks();
+
+//     res.status(200).json(result);
+//   } catch (error) {
+//     console.error("Fetch error:", error);
+//     res.status(500).json({ error: "Failed to fetch today's tasks" });
+//   }
+// };
+
 exports.getTodayTasks = async (req, res) => {
   try {
-    const result = await DailyCompletionService.getTodayTasks();
+    const filters = req.query; // 👈 get query params
+
+    const result = await DailyCompletionService.getTodayTasks(filters);
 
     res.status(200).json(result);
   } catch (error) {
@@ -72,8 +85,9 @@ exports.getTodayTasks = async (req, res) => {
 exports.getTasksByDate = async (req, res) => {
   try {
     const date = req.params.date; // Expecting date in YYYY-MM-DD format
+    const filters = req.query;
 
-    const result = await DailyCompletionService.getTasksByDate(date);
+    const result = await DailyCompletionService.getTasksByDate(date, filters);
 
     res.status(200).json(result);
   } catch (error) {
